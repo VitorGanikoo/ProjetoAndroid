@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.toolbar.*
             when (item.itemId) {
                 R.id.nav_clientes -> {
                     Toast.makeText(this, "Clicou Clientes", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, TelaCadastroActivity::class.java)
+                    startActivityForResult(intent, 15)
                 }
                 R.id.nav_forum -> {
                     Toast.makeText(this, "Clicou Forum", Toast.LENGTH_SHORT).show()
@@ -59,9 +61,18 @@ import kotlinx.android.synthetic.main.toolbar.*
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_tela_inicial)
 
+
+            botaoNovoCliente.setOnClickListener{onClickNovoCliente()}
+
+
             val args = intent.extras
             val nome = args.getString("nome")
             Toast.makeText(this, "Parametro enviado: $nome", Toast.LENGTH_SHORT).show()
+
+
+            val argss = intent.extras
+            val nomes = argss.getString("nomes")
+            Toast.makeText(this, "Parametro enviado: $nomes", Toast.LENGTH_SHORT).show()
 
 
             botaoSair.setOnClickListener {onClickSair() }
@@ -74,12 +85,18 @@ import kotlinx.android.synthetic.main.toolbar.*
             configuraMenuLateral()
         }
 
+        private fun onClickNovoCliente() {
+            val intent = Intent(this, TelaCadastroActivity::class.java)
+            startActivityForResult(intent, 15)
+
+
+        }
 
         fun onClickSair(){
-            var intent = Intent()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivityForResult(intent, 0)
+            //0 é a mainActivity
             intent.putExtra("Resultado", "Saiu do App")
-            setResult(Activity.RESULT_OK, intent)
-            finish()
 
         }
 

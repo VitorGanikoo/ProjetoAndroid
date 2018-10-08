@@ -7,31 +7,38 @@
     android:fitsSystemWindows="true">
 
 
-<LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TelaInicialActivity">
-    <include layout="@layout/toolbar"></include>
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".TelaInicialActivity">
 
-    <Button
-        android:id="@+id/botaoSair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sair"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="48dp" />
+        <include layout="@layout/toolbar"></include>
 
-    <TextView
-        android:id="@+id/textoTelaInicial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bem Vindo"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="16dp" />
+        <TextView
+            android:id="@+id/textoTelaInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bem Vindo"
+            tools:layout_editor_absoluteX="159dp"
+            tools:layout_editor_absoluteY="16dp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/botaoNovoCliente"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:text="Novo Cliente" />
+
+        <Button
+            android:id="@+id/botaoSair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sair"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="48dp" />
+
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
