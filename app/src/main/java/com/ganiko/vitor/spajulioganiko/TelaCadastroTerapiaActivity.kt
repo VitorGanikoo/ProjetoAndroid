@@ -14,6 +14,8 @@ class TelaCadastroTerapiaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_cadastro_terapia)
 
+        supportActionBar?.title = "Cadastro De Terapias"
+
         botaoCadastroTerapia.setOnClickListener{OnClickCadastrarTerapia()}
     }
 
@@ -35,6 +37,6 @@ class TelaCadastroTerapiaActivity : AppCompatActivity() {
         Toast.makeText(this, "Terapia cadastrada: $valorTerapia", Toast.LENGTH_SHORT).show()
 
 
-        supportActionBar?.title = "Cadastro De Terapias"
+
     }
 }

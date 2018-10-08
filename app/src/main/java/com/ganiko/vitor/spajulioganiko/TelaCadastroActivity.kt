@@ -13,6 +13,7 @@ class TelaCadastroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_cadastro)
 
+        supportActionBar?.title = "Cadastro De Clientes"
 
         botaoCadastro.setOnClickListener{OnClickCadastrar()}
     }
@@ -34,7 +35,7 @@ class TelaCadastroActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Cliente cadastrado: $valorCliente", Toast.LENGTH_SHORT).show()
 
-        supportActionBar?.title = "Cadastro De Clientes"
+
 
     }
 
