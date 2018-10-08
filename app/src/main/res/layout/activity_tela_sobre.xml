@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaSobreActivity">
+
+
+    <TextView
+        android:id="@+id/textoSobre"
+        android:layout_width="335dp"
+        android:layout_height="wrap_content"
+        android:text="Somos uma clínica de tratamentos naturais, com mais de 10 anos de tradição dentro do conceito oriental de tratamento. O nosso objetivo principal é trazer a saúde e o bem estar através de estímulos que nossas técnicas conseguem fazer no corpo humano, servindo como um grande parceiro em tratamentos alopáticos. Os nossos métodos de relaxamento profundo com massagens tem nos trazidos cada vez mais pessoas que buscam uma vida mais tranquila e sofrem com o estresse diário da batalha no campo profissional, familiar e pessoal devido ao aumento das cobranças do mundo moderno."
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="79dp" />
+</android.support.constraint.ConstraintLayout>

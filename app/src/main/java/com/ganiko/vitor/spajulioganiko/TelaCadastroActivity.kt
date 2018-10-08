@@ -34,7 +34,7 @@ class TelaCadastroActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Cliente cadastrado: $valorCliente", Toast.LENGTH_SHORT).show()
 
-
+        supportActionBar?.title = "Cadastro De Clientes"
 
     }
 

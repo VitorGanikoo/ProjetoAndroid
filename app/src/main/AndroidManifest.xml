@@ -20,7 +20,10 @@
         <activity
             android:name=".TelaInicialActivity"
             android:theme="@style/AppTheme.Toolbar" />
-        <activity android:name=".TelaCadastroActivity"></activity>
+        <activity android:name=".TelaCadastroActivity" />
+        <activity android:name=".TelaSobreActivity" />
+        <activity android:name=".TelaCadastroTerapiaActivity" />
+        <activity android:name=".TelaTerpiaActivity"></activity>
     </application>
 
 </manifest>

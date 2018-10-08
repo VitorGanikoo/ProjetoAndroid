@@ -3,23 +3,23 @@
     <group android:checkableBehavior="single">
 
         <item android:id="@+id/nav_clientes"
-            android:icon="@drawable/ic_disciplina_black"
-            android:title="Clientes"/>
+
+            android:title="Cadastro De Clientes"/>
 
         <item android:id="@+id/nav_forum"
-            android:icon="@drawable/ic_forum_black"
-            android:title="Forum"/>
+
+            android:title="Cadastro de Terpias"/>
 
         <item android:id="@+id/nav_msg"
-            android:icon="@drawable/ic_chat_black"
-            android:title="Mensagens"/>
+
+            android:title="Terapias"/>
 
         <item android:id="@+id/nav_loc"
-            android:icon="@drawable/ic_local_black"
-            android:title="Localiza ai BB"/>
+
+            android:title="Sobre"/>
 
         <item android:id="@+id/nav_config"
-            android:icon="@drawable/ic_configuracoes_black"
-            android:title="Configurações"/>
+
+            android:title="Sair"/>
     </group>
 </menu>

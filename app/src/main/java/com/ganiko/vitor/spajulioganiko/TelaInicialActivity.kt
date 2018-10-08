@@ -20,14 +20,44 @@ import kotlinx.android.synthetic.main.toolbar.*
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.nav_clientes -> {
-                    Toast.makeText(this, "Clicou Clientes", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Clicou Cadastro de Clientes", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, TelaCadastroActivity::class.java)
                     startActivityForResult(intent, 15)
                 }
                 R.id.nav_forum -> {
-                    Toast.makeText(this, "Clicou Forum", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(this, "Clicou em Cadastro de Terpias", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, TelaCadastroTerapiaActivity::class.java)
+                    startActivityForResult(intent, 35)
+
+
                 }
 
+                R.id.nav_msg -> {
+                    Toast.makeText(this, "Clicou em Terapias", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, TelaTerpiaActivity::class.java)
+                    startActivityForResult(intent, 45)
+
+
+                }
+
+                R.id.nav_loc -> {
+                    Toast.makeText(this, "Clicou em Sobre", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, TelaSobreActivity::class.java)
+                    startActivityForResult(intent, 25)
+
+
+                }
+
+                R.id.nav_config -> {
+                    //Toast.makeText(this, "Clicou em Cadastro de Terpias", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivityForResult(intent, 0)
+                    //0 é a mainActivity
+                    intent.putExtra("Resultado", "Saiu do App")
+                    finish()
+
+                }
             }
 
             layoutMenuLateral.closeDrawer(GravityCompat.START)
