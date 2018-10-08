@@ -1,0 +1,106 @@
+package com.ganiko.vitor.spajulioganiko
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_tela_inicial.*
+import kotlinx.android.synthetic.main.toolbar.*
+
+    class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.nav_clientes -> {
+                    Toast.makeText(this, "Clicou Clientes", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_forum -> {
+                    Toast.makeText(this, "Clicou Forum", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+            layoutMenuLateral.closeDrawer(GravityCompat.START)
+            return true
+        }
+
+        fun configuraMenuLateral(){
+            val toolbar = toolbar
+            val layoutMenuLateral = layoutMenuLateral
+
+            var toggle = ActionBarDrawerToggle(
+                    this,
+                    layoutMenuLateral,
+                    toolbar,
+                    R.string.drawer_open,
+                    R.string.drawer_close
+
+            )
+
+            layoutMenuLateral.addDrawerListener(toggle)
+            toggle.syncState()
+
+            val navigationView = menu_tela_inicial
+            navigationView.setNavigationItemSelectedListener(this)
+        }
+
+
+        private val context: Context get() = this
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_tela_inicial)
+
+            val args = intent.extras
+            val nome = args.getString("nome")
+            Toast.makeText(this, "Parametro enviado: $nome", Toast.LENGTH_SHORT).show()
+
+
+            botaoSair.setOnClickListener {onClickSair() }
+
+            setSupportActionBar(toolbar)
+
+            supportActionBar?.title = "Clientes"
+    //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            configuraMenuLateral()
+        }
+
+
+        fun onClickSair(){
+            var intent = Intent()
+            intent.putExtra("Resultado", "Saiu do App")
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+
+        }
+
+        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            menuInflater.inflate(R.menu.menu_main, menu)
+            return super.onCreateOptionsMenu(menu)
+
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+            val id = item?.itemId
+            if (id == R.id.action_buscar){
+                Toast.makeText(this, "Clicou em buscar", Toast.LENGTH_SHORT).show()
+            }else if (id == R.id.action_atualizar ){
+                Toast.makeText(this, "Clicou em Atualizar", Toast.LENGTH_SHORT).show()
+            }else if (id == R.id.action_configurar){
+                Toast.makeText(this, "Clicou em Configurações", Toast.LENGTH_SHORT). show()
+            }else if (id == android.R.id.home){
+                finish()
+            }
+
+            return super.onOptionsItemSelected(item)
+        }
+    }

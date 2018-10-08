@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SpaJulioGaniko</string>
+
+    <string name="action_buscar">Buscar</string>
+    <string name="action_atualizar">Atualizar</string>
+    <string name="action_configurar">Configurações</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Fechar</string>
+
+</resources>

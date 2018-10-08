@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_clientes"
+            android:icon="@drawable/ic_disciplina_black"
+            android:title="Clientes"/>
+
+        <item android:id="@+id/nav_forum"
+            android:icon="@drawable/ic_forum_black"
+            android:title="Forum"/>
+
+        <item android:id="@+id/nav_msg"
+            android:icon="@drawable/ic_chat_black"
+            android:title="Mensagens"/>
+
+        <item android:id="@+id/nav_loc"
+            android:icon="@drawable/ic_local_black"
+            android:title="Localiza ai BB"/>
+
+        <item android:id="@+id/nav_config"
+            android:icon="@drawable/ic_configuracoes_black"
+            android:title="Configurações"/>
+    </group>
+</menu>
