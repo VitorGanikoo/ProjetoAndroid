@@ -38,6 +38,18 @@
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="48dp" />
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/RecyclerClientes"
+            android:scrollbars="vertical">
+
+
+
+
+        </android.support.v7.widget.RecyclerView>
+
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

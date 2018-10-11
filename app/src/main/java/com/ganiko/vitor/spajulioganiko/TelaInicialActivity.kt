@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,6 +18,10 @@ import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
 
     class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+        private var clientes = listOf<Clientes>()
+        var recyclerView: RecyclerView? = null
 
 
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -113,7 +120,31 @@ import kotlinx.android.synthetic.main.toolbar.*
     //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
             configuraMenuLateral()
+
+
+            recyclerView = findViewById(R.id.RecyclerClientes)
+            recyclerView?.layoutManager = LinearLayoutManager(context)
+            recyclerView?.itemAnimator = DefaultItemAnimator()
+            recyclerView?.setHasFixedSize(true)
+
         }
+
+
+
+        override fun onResume() {
+            super.onResume()
+            taskClientes()
+        }
+
+        fun taskClientes(){
+            clientes = ClientesService.getClientes(context)
+            recyclerView?.adapter = ClienteAdapter(clientes){onClickCliente(it)}
+        }
+
+        fun onClickCliente(clientes: Clientes){
+            Toast.makeText(context, "Clicou no cliente: ${clientes.nome}", Toast.LENGTH_SHORT).show()
+        }
+
 
         private fun onClickNovoCliente() {
             val intent = Intent(this, TelaCadastroActivity::class.java)
