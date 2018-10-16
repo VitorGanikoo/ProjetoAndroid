@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,7 +8,9 @@
     android:fitsSystemWindows="true">
 
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,6 +18,27 @@
         tools:context=".TelaInicialActivity">
 
         <include layout="@layout/toolbar"></include>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/RecyclerClientes"
+                android:scrollbars="vertical"
+                android:cacheColorHint="@android:color/transparent"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent"
+                android:scrollbarStyle="outsideOverlay">
+
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
 
         <TextView
             android:id="@+id/textoTelaInicial"
@@ -38,16 +62,7 @@
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="48dp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/RecyclerClientes"
-            android:scrollbars="vertical">
 
-
-
-
-        </android.support.v7.widget.RecyclerView>
 
 
     </LinearLayout>
@@ -55,7 +70,7 @@
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/menu_tela_inicial"
+        android:id="@+id/menu_lateral"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/menu_lateral_cabecalho"

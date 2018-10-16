@@ -1,5 +1,7 @@
 package com.ganiko.vitor.spajulioganiko
 
+import com.google.gson.GsonBuilder
+
 class Clientes {
 
     var id:Long = 0
@@ -13,6 +15,9 @@ class Clientes {
         return "Clientes(nome='$nome')"
     }
 
+    fun toJson(): String {
+        return GsonBuilder().create().toJson(this)
+    }
 
 
 }
