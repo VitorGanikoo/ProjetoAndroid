@@ -59,15 +59,15 @@
         tools:layout_editor_absoluteY="232dp" />
 
     <TextView
-        android:id="@+id/textoCadastroData"
+        android:id="@+id/textoFoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Data de Nascimento"
+        android:text="Foto"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="293dp" />
 
     <EditText
-        android:id="@+id/campo_Cadastro_Data"
+        android:id="@+id/campo_Foto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

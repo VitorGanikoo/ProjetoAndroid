@@ -27,10 +27,10 @@ class ClienteAdapter (
 
 
         init {
-            cardNome = view.findViewById(R.id.card_Nome)
-            cardImg = view.findViewById(R.id.card_Imagem)
+            cardNome = view.findViewById<TextView>(R.id.card_Nome)
+            cardImg = view.findViewById<ImageView>(R.id.card_Imagem)
             cardProgress = view.findViewById<ProgressBar>(R.id.cardProgress)
-            cardView = view.findViewById(R.id.card_Clientes)
+            cardView = view.findViewById<CardView>(R.id.card_Clientes)
         }
 
     }

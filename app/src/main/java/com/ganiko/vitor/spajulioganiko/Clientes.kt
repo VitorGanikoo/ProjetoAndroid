@@ -1,14 +1,15 @@
 package com.ganiko.vitor.spajulioganiko
 
 import com.google.gson.GsonBuilder
+import java.io.Serializable
 
-class Clientes {
+class Clientes : Serializable {
 
     var id:Long = 0
     var nome = ""
     var email = ""
     var telefone = ""
-    var dataNascimento = ""
+    //var dataNascimento = ""
     var foto = ""
 
     override fun toString(): String {

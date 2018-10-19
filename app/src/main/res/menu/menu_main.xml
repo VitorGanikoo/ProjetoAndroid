@@ -6,12 +6,17 @@
         android:id="@+id/action_buscar"
         android:icon="@drawable/ic_buscar_black"
         android:title="Buscar"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/action_atualizar"
         android:icon="@drawable/ic_atualizar_black"
         android:title="Atualizar"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_adicionar"
+        android:title="Adicionar"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_configurar"
         android:icon="@drawable/ic_configuracoes_black"

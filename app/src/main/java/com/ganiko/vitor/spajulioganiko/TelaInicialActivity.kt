@@ -10,10 +10,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import android.support.v7.widget.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -26,7 +23,8 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     private var clientes = listOf<Clientes>()
     var RecyclerClientes: RecyclerView? = null
     private val context: Context get() = this
-
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -71,7 +69,8 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
             }
         }
 
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
+        val drawer = findViewById<DrawerLayout>(R.id.layoutMenuLateral)
+        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -101,7 +100,7 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         setContentView(R.layout.activity_tela_inicial)
 
 
-        botaoNovoCliente.setOnClickListener { onClickNovoCliente() }
+        //botaoNovoCliente.setOnClickListener { onClickNovoCliente() }
 
 
         val args = intent.extras
@@ -151,8 +150,11 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
                 .start()
     }
 
-    fun onClickCliente(clientes: Clientes) {
-        Toast.makeText(context, "Clicou no cliente: ${clientes.nome}", Toast.LENGTH_SHORT).show()
+    fun onClickCliente(cliente: Clientes) {
+        Toast.makeText(context, "Clicou no cliente: ${cliente.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ClienteActivity::class.java)
+        intent.putExtra("cliente", cliente)
+        startActivityForResult(intent, REQUEST_REMOVE)
     }
 
 
@@ -189,11 +191,28 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // infla o menu com os botões da ActionBar
+        menuInflater.inflate(R.menu.menu_main, menu)
+        // vincular evento de buscar
+        (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // ação enquanto está digitando
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // ação  quando terminou de buscar e enviou
+                return false
+            }
+
+        })
+        return true
     }
+
+
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -204,10 +223,26 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
             Toast.makeText(this, "Clicou em Atualizar", Toast.LENGTH_SHORT).show()
         } else if (id == R.id.action_configurar) {
             Toast.makeText(this, "Clicou em Configurações", Toast.LENGTH_SHORT).show()
-        } else if (id == android.R.id.home) {
+        } else if (id == R.id.action_adicionar) {
+            // iniciar activity de cadastro
+            val intent = Intent(context, TelaCadastroActivity::class.java)
+            startActivityForResult(intent, REQUEST_CADASTRO)
+        }
+        // botão up navigation
+        else if (id == android.R.id.home) {
             finish()
         }
-
         return super.onOptionsItemSelected(item)
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskClientes()
+        }
+    }
+
+
+
 }
