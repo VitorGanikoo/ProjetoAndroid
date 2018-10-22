@@ -41,21 +41,17 @@ object ClientesService {
     }
 
     fun save (clientes: Clientes): Response {
-        val url = "$host/clientes"
-        val json = GsonBuilder().create().toJson(clientes)
-        val retorno = HttpHelper.post(url, json)
+        val json = HttpHelper.post("$host/clientes", clientes.toJson())
 
-        return parseJson<Response>(retorno)
+        return parseJson<Response>(json)
 
     }
 
 
     fun delete(cliente: Clientes): Response {
-        Log.d(TAG, cliente.id.toString())
         val url = "$host/clientes/${cliente.id}"
         val json = HttpHelper.delete(url)
-        Log.d(TAG, json)
-        return parseJson(json)
+        return parseJson<Response>(json)
     }
 
 

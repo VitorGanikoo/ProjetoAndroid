@@ -14,6 +14,8 @@ class ClienteActivity : DebugActivity() {
 
     private val context: Context get() = this
     var cliente: Clientes? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cliente)
@@ -35,6 +37,9 @@ class ClienteActivity : DebugActivity() {
         // atualizar dados do carro
         var texto = findViewById<TextView>(R.id.nomeCliente)
         texto.text = cliente?.nome
+        var email = findViewById<TextView>(R.id.emailCliente)
+        email.text = cliente?.email
+
         var imagem = findViewById<ImageView>(R.id.imagemCliente)
         Picasso.with(this).load(cliente?.foto).fit().into(imagem,
                 object: com.squareup.picasso.Callback{
@@ -61,7 +66,7 @@ class ClienteActivity : DebugActivity() {
             // só remove se houver confirmação positiva
             AlertDialog.Builder(this)
                     .setTitle(R.string.app_name)
-                    .setMessage("Deseja excluir a disciplina")
+                    .setMessage("Deseja excluir o cliente")
                     .setPositiveButton("Sim") {
                         dialog, which ->
                         dialog.dismiss()

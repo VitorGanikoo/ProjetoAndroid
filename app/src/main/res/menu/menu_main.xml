@@ -10,7 +10,7 @@
         app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/action_atualizar"
-        android:icon="@drawable/ic_atualizar_black"
+        android:icon="@drawable/ic_atualizar_white"
         android:title="Atualizar"
         app:showAsAction="ifRoom" />
     <item
