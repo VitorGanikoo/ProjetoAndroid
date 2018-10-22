@@ -39,6 +39,9 @@ class ClienteActivity : DebugActivity() {
         texto.text = cliente?.nome
         var email = findViewById<TextView>(R.id.emailCliente)
         email.text = cliente?.email
+        var fone = findViewById<TextView>(R.id.foneCliente)
+        fone.text = cliente?.telefone
+
 
         var imagem = findViewById<ImageView>(R.id.imagemCliente)
         Picasso.with(this).load(cliente?.foto).fit().into(imagem,
