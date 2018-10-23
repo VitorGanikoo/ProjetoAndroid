@@ -22,7 +22,11 @@ object ClientesService {
             val json = HttpHelper.get(url)
             return parseJson(json)
         } else {
-            return ArrayList<Clientes>()
+            val dao = DatabaseManager.getClienteDAO()
+            var clientes =  dao.findAll()
+
+
+            return clientes
         }
 
 
@@ -48,6 +52,28 @@ object ClientesService {
     }
 
 
+    fun existeCliente(cliente: Clientes): Boolean {
+        val dao = DatabaseManager.getClienteDAO()
+        return dao.getNyId(cliente.id) != null
+    }
+
+
+
+    fun saveOffline(clientes: Clientes) : Boolean {
+        val dao = DatabaseManager.getClienteDAO()
+
+        if (! existeCliente(clientes)) {
+            dao.insert(clientes)
+        }
+
+        return true
+
+    }
+
+
+
+
+
     fun delete(cliente: Clientes): Response {
         val url = "$host/clientes/${cliente.id}"
         val json = HttpHelper.delete(url)
@@ -55,6 +81,11 @@ object ClientesService {
     }
 
 
+
+
+
+
+    
 
     inline fun <reified T> parseJson(json: String): T{
         val tipo = object : TypeToken<T>(){}.type
