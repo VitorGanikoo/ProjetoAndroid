@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_tela_cadastro.*
 import kotlinx.android.synthetic.main.activity_tela_cadastro_terapia.*
 
 
@@ -16,7 +17,15 @@ class TelaCadastroTerapiaActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Cadastro De Terapias"
 
-        botaoCadastroTerapia.setOnClickListener{OnClickCadastrarTerapia()}
+        botaoCadastroTerapia.setOnClickListener {
+            val terapia = Terapias()
+            terapia.nome = campoCadastroTerapiaNome.text.toString()
+            terapia.descricao = campoCadastroTerapiaDescricao.text.toString()
+            terapia.valor = campoCadastroTerapiaValor.text.toString()
+            terapia.foto = campoCadastroTerapiaFoto.text.toString()
+
+            taskAtualizarTerapias(terapia)
+        }
     }
 
     private fun OnClickCadastrarTerapia() {
@@ -39,4 +48,18 @@ class TelaCadastroTerapiaActivity : AppCompatActivity() {
 
 
     }
+
+
+
+    private fun taskAtualizarTerapias(terapias: Terapias) {
+        // Thread para salvar a discilpina
+        Thread {
+            TerapiasService.save(terapias)
+            runOnUiThread {
+                // após cadastrar, voltar para activity anterior
+                finish()
+            }
+        }.start()
+    }
+
 }

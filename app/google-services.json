@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "272069970924",
+    "firebase_url": "https://projetoandroid-3fa6e.firebaseio.com",
+    "project_id": "projetoandroid-3fa6e",
+    "storage_bucket": "projetoandroid-3fa6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272069970924:android:803ad34b52fac4ff",
+        "android_client_info": {
+          "package_name": "com.ganiko.vitor.spajulioganiko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272069970924-6s0fvc6jsou8hh255a4edd16q4nasj4o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8ulmeIOS7TswDrqU_32j_rldwbB1aJvY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

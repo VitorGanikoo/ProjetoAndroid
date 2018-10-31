@@ -22,16 +22,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".DebugActivity" />
+
         <activity
             android:name=".TelaInicialActivity"
             android:theme="@style/AppTheme.Toolbar" />
 
+        <activity
+            android:name=".TelaTerpiaActivity"
+            android:theme="@style/AppTheme.Toolbar" />
 
 
 
         <activity android:name=".TelaSobreActivity" />
-        <activity android:name=".TelaCadastroTerapiaActivity" />
-        <activity android:name=".TelaTerpiaActivity"></activity>
+
+
 
 
             <activity
@@ -39,6 +43,21 @@
                 android:parentActivityName=".TelaInicialActivity"
                 android:theme="@style/AppTheme.Toolbar" />
             <activity android:name=".TelaCadastroActivity"></activity>
+
+            <activity
+                android:name=".TerapiaActivity"
+                android:parentActivityName=".TelaTerpiaActivity"
+                android:theme="@style/AppTheme.Toolbar" />
+            <activity android:name=".TelaCadastroTerapiaActivity"></activity>
+
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

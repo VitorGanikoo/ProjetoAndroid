@@ -26,6 +26,17 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     private var REQUEST_CADASTRO = 1
     private var REQUEST_REMOVE= 2
 
+
+
+    fun enviaNotificacao(cliente: Clientes){
+        val intent = Intent(this, ClienteActivity::class.java)
+        intent.putExtra("cliente", cliente)
+        NotificationUtil.create(1, intent, "SpaJulioGaniko","Voce tem um novo cliente em ${cliente.nome}")
+    }
+
+
+
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_clientes -> {
@@ -143,6 +154,8 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
 
             runOnUiThread {
                 RecyclerClientes?.adapter = ClienteAdapter(clientes) { onClickCliente(it) }
+                RecyclerClientes?.adapter = ClienteAdapter(this.clientes) {onClickCliente(it)}
+                enviaNotificacao(this.clientes.get(0))
 
             }
 

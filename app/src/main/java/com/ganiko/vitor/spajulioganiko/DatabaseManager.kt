@@ -16,4 +16,8 @@ object DatabaseManager {
     fun getClienteDAO(): ClienteDAO{
         return dbInstance.ClienteDAO()
     }
+
+    fun getTerapiaDAO(): TerapiaDAO{
+        return dbInstance.TerapiaDAO()
+    }
 }
