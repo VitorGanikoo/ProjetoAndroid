@@ -2,7 +2,6 @@ package com.ganiko.vitor.spajulioganiko
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -14,14 +13,14 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_tela_consultas.*
 import kotlinx.android.synthetic.main.activity_tela_terpia.*
 import kotlinx.android.synthetic.main.toolbar.*
 
+class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
-class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
-
-    private var terapias = listOf<Terapias>()
+    private var consultas = listOf<Consultas>()
     var recyclerView: RecyclerView? = null
     private val context: Context get() = this
     private var REQUEST_CADASTRO = 1
@@ -29,11 +28,11 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_terpia)
+        setContentView(R.layout.activity_tela_consultas)
 
 
 
-        recyclerView = findViewById<RecyclerView>(R.id.RecyclerTerapias)
+        recyclerView = findViewById<RecyclerView>(R.id.RecyclerConsultas)
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.itemAnimator = DefaultItemAnimator()
         recyclerView?.setHasFixedSize(true)
@@ -41,7 +40,7 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Terapias"
+        supportActionBar?.title = "Consultas"
 
         configuraMenuLateral()
     }
@@ -62,7 +61,6 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
 
             }
-
 
             R.id.nav_forum2 -> {
 
@@ -150,16 +148,16 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
     override fun onResume() {
         super.onResume()
-        taskTerapias()
+        taskConsultas()
     }
 
-    fun taskTerapias() {
+    fun taskConsultas() {
         Thread {
 
-            this.terapias = TerapiasService.getTerapias(context)
+            this.consultas = ConsultasService.getConsultas(context)
 
             runOnUiThread {
-                RecyclerTerapias?.adapter = TerapiaAdapter(terapias) { onClickTerapia(it) }
+                RecyclerConsultas?.adapter = ConsultaAdapter(consultas) { onClickConsulta(it) }
 
             }
 
@@ -169,25 +167,18 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
 
 
-    fun onClickTerapia(terapia: Terapias){
-        Toast.makeText(context, "Clicou na terapia: ${terapia.nome}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, TerapiaActivity::class.java)
-        intent.putExtra("terapia", terapia)
+    fun onClickConsulta(consulta: Consultas){
+        Toast.makeText(context, "Clicou na consulta: ${consulta.nomeCliente}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ConsultaActivity::class.java)
+        intent.putExtra("consulta", consulta)
         startActivityForResult(intent, REQUEST_REMOVE)
-        }
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-      if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
-           // atualizar lista de disciplinas
-         taskTerapias()
-      }
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskConsultas()
+        }
     }
-
-    }
-
-
-
-
-
-
+}

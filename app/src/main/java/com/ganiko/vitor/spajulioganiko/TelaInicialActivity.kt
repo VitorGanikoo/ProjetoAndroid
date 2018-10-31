@@ -53,9 +53,26 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
 
             }
 
+            R.id.nav_forum2 -> {
+
+                Toast.makeText(this, "Clicou em Cadastro de Consultas", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, TelaCadastroConsultaActivity::class.java)
+                startActivityForResult(intent, 65)
+
+
+            }
+
             R.id.nav_msg -> {
                 Toast.makeText(this, "Clicou em Terapias", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, TelaTerpiaActivity::class.java)
+                startActivityForResult(intent, 85)
+
+
+            }
+
+            R.id.nav_msg2 -> {
+                Toast.makeText(this, "Clicou em Consultas", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, TelaConsultaActivity::class.java)
                 startActivityForResult(intent, 45)
 
 

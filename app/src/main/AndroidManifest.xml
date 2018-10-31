@@ -31,6 +31,10 @@
             android:name=".TelaTerpiaActivity"
             android:theme="@style/AppTheme.Toolbar" />
 
+        <activity
+            android:name=".TelaConsultaActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+
 
 
         <activity android:name=".TelaSobreActivity" />
@@ -49,6 +53,13 @@
                 android:parentActivityName=".TelaTerpiaActivity"
                 android:theme="@style/AppTheme.Toolbar" />
             <activity android:name=".TelaCadastroTerapiaActivity"></activity>
+
+
+        <activity
+            android:name=".ConsultaActivity"
+            android:parentActivityName=".TelaConsultaActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+        <activity android:name=".TelaCadastroConsultaActivity"></activity>
 
 
         <service android:name=".MyFirebaseMessagingService">

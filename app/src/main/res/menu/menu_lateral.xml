@@ -10,9 +10,17 @@
 
             android:title="Cadastro de Terpias"/>
 
+        <item android:id="@+id/nav_forum2"
+
+            android:title="Cadastro de Consultas"/>
+
         <item android:id="@+id/nav_msg"
 
             android:title="Terapias"/>
+
+        <item android:id="@+id/nav_msg2"
+
+            android:title="Consultas"/>
 
         <item android:id="@+id/nav_loc"
 

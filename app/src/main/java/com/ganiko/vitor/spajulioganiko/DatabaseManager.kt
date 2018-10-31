@@ -20,4 +20,8 @@ object DatabaseManager {
     fun getTerapiaDAO(): TerapiaDAO{
         return dbInstance.TerapiaDAO()
     }
+
+    fun getConsultaDAO(): ConsultaDAO{
+        return dbInstance.ConsultaDAO()
+    }
 }
