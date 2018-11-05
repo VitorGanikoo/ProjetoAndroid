@@ -27,6 +27,14 @@
             android:name=".TelaInicialActivity"
             android:theme="@style/AppTheme.Toolbar" />
 
+
+        <activity
+            android:name=".TelaClienteActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+
+
+
+
         <activity
             android:name=".TelaTerpiaActivity"
             android:theme="@style/AppTheme.Toolbar" />
@@ -36,30 +44,68 @@
             android:theme="@style/AppTheme.Toolbar" />
 
 
+        <activity
+            android:name=".TelaConsultaActivityTeste"
+            android:theme="@style/AppTheme.Toolbar" />
 
-        <activity android:name=".TelaSobreActivity" />
+
+        <activity
+            android:name=".TelaSobreActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+
+
+        <activity
+            android:name=".TelaCadastroActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+
+
+
+
+        <activity
+            android:name=".TelaCadastroTerapiaActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+
+
+        <activity
+            android:name=".TelaCalendario"
+            android:theme="@style/AppTheme.Toolbar" />
+
+
 
 
 
 
             <activity
                 android:name=".ClienteActivity"
-                android:parentActivityName=".TelaInicialActivity"
+                android:parentActivityName=".TelaClienteActivity"
                 android:theme="@style/AppTheme.Toolbar" />
-            <activity android:name=".TelaCadastroActivity"></activity>
+
+
+
+            <activity
+                android:name=".TelaCadastroConsultaActivity"
+                android:theme="@style/AppTheme.Toolbar" />
+
+
+
+
 
             <activity
                 android:name=".TerapiaActivity"
                 android:parentActivityName=".TelaTerpiaActivity"
                 android:theme="@style/AppTheme.Toolbar" />
-            <activity android:name=".TelaCadastroTerapiaActivity"></activity>
 
 
-        <activity
-            android:name=".ConsultaActivity"
-            android:parentActivityName=".TelaConsultaActivity"
-            android:theme="@style/AppTheme.Toolbar" />
-        <activity android:name=".TelaCadastroConsultaActivity"></activity>
+
+
+
+
+
+            <activity
+                android:name=".ConsultaActivity"
+                android:parentActivityName=".TelaConsultaActivityTeste"
+                android:theme="@style/AppTheme.Toolbar" />
+
 
 
         <service android:name=".MyFirebaseMessagingService">

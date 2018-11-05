@@ -5,6 +5,7 @@ import br.com.fernandosousa.lmsapp.HttpHelper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import fernandosousa.com.br.lmsapp.AndroidUtils
+import fernandosousa.com.br.lmsapp.LMSApplication
 import fernandosousa.com.br.lmsapp.Response
 
 object TerapiasService {
@@ -13,11 +14,16 @@ object TerapiasService {
     val TAG = "WS_LMS"
 
     fun getTerapias(context: Context):List<Terapias> {
-
+        var terapias = ArrayList<Terapias>()
         if (AndroidUtils.isInternetDisponivel(context)) {
             val url = "${TerapiasService.host}/terapias"
             val json = HttpHelper.get(url)
-            return TerapiasService.parseJson(json)
+            terapias = TerapiasService.parseJson(json)
+            // salvar offline
+            for (d in terapias) {
+                TerapiasService.saveOffline(d)
+            }
+            return terapias
         } else {
             val dao = DatabaseManager.getTerapiaDAO()
             var terapias = dao.findAll()
@@ -60,10 +66,17 @@ object TerapiasService {
 
 
 
-    fun delete(terapias: Terapias): Response {
-        val url = "${TerapiasService.host}/terapias/${terapias.id}"
-        val json = HttpHelper.delete(url)
-        return parseJson<Response>(json)
+    fun delete(terapia: Terapias): Response {
+        if (AndroidUtils.isInternetDisponivel(LMSApplication.getInstance().applicationContext)) {
+            val url = "${TerapiasService.host}/terapias/${terapia.id}"
+            val json = HttpHelper.delete(url)
+
+            return TerapiasService.parseJson(json)
+        } else {
+            val dao = DatabaseManager.getTerapiaDAO()
+            dao.delete(terapia)
+            return Response(status = "OK", msg = "Dados salvos localmente")
+        }
     }
 
 

@@ -63,7 +63,6 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
             }
 
-
             R.id.nav_forum2 -> {
 
                 Toast.makeText(this, "Clicou em Cadastro de Consultas", Toast.LENGTH_SHORT).show()
@@ -84,18 +83,24 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
             R.id.nav_msg2 -> {
                 Toast.makeText(this, "Clicou em Consultas", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, TelaConsultaActivity::class.java)
-                startActivityForResult(intent, 45)
+                startActivityForResult(intent, 215)
 
 
             }
 
-            R.id.nav_msg -> {
-                Toast.makeText(this, "Clicou em Terapias", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, TelaTerpiaActivity::class.java)
-                startActivityForResult(intent, 45)
-
-
+            R.id.nav_msg3 -> {
+                Toast.makeText(this, "Clicou em Clientes", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, TelaClienteActivity::class.java)
+                startActivityForResult(intent, 245)
             }
+
+
+            R.id.nav_calen -> {
+                Toast.makeText(this, "Clicou em Calendário", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, TelaCalendario::class.java)
+                startActivityForResult(intent, 285)
+            }
+
 
             R.id.nav_loc -> {
                 Toast.makeText(this, "Clicou em Sobre", Toast.LENGTH_SHORT).show()

@@ -3,31 +3,49 @@
     <group android:checkableBehavior="single">
 
         <item android:id="@+id/nav_clientes"
+            android:icon="@drawable/formsblack60"
 
             android:title="Cadastro De Clientes"/>
 
         <item android:id="@+id/nav_forum"
+            android:icon="@drawable/formsblack60"
 
             android:title="Cadastro de Terpias"/>
 
         <item android:id="@+id/nav_forum2"
-
+            android:icon="@drawable/formsblack60"
             android:title="Cadastro de Consultas"/>
 
-        <item android:id="@+id/nav_msg"
 
-            android:title="Terapias"/>
+        <item android:id="@+id/nav_msg3"
+            android:icon="@drawable/classroom48"
+            android:title="Clientes"/>
+
+
+
 
         <item android:id="@+id/nav_msg2"
-
+            android:icon="@drawable/classroom48"
             android:title="Consultas"/>
 
+
+
+        <item android:id="@+id/nav_msg"
+            android:icon="@drawable/classroom48"
+            android:title="Terapias"/>
+
+        <item android:id="@+id/nav_calen"
+            android:icon="@drawable/calendar50"
+            android:title="Calendário"/>
+
+
         <item android:id="@+id/nav_loc"
+            android:icon="@drawable/about50"
 
             android:title="Sobre"/>
 
         <item android:id="@+id/nav_config"
-
+            android:icon="@drawable/exit50"
             android:title="Sair"/>
     </group>
 </menu>

@@ -14,10 +14,10 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_tela_consultas.*
-
+import kotlinx.android.synthetic.main.activity_tela_terpia.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSelectedListener {
+class TelaConsultaActivityTeste :  DebugActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
 
     private var consultas = listOf<Consultas>()
@@ -62,6 +62,7 @@ class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemS
 
             }
 
+
             R.id.nav_forum2 -> {
 
                 Toast.makeText(this, "Clicou em Cadastro de Consultas", Toast.LENGTH_SHORT).show()
@@ -82,23 +83,11 @@ class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemS
             R.id.nav_msg2 -> {
                 Toast.makeText(this, "Clicou em Consultas", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, TelaConsultaActivity::class.java)
-                startActivityForResult(intent, 215)
+                startActivityForResult(intent, 45)
 
 
             }
 
-            R.id.nav_msg3 -> {
-                Toast.makeText(this, "Clicou em Clientes", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, TelaClienteActivity::class.java)
-                startActivityForResult(intent, 245)
-            }
-
-
-            R.id.nav_calen -> {
-                Toast.makeText(this, "Clicou em Calendário", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, TelaCalendario::class.java)
-                startActivityForResult(intent, 285)
-            }
 
 
             R.id.nav_loc -> {
@@ -144,6 +133,12 @@ class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemS
 
 
 
+    private fun onClickSair() {
+        val intent = Intent(this, TelaTerpiaActivity::class.java)
+        startActivityForResult(intent, 65)
+
+
+    }
 
 
     override fun onResume() {
@@ -167,10 +162,10 @@ class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemS
 
 
 
-    fun onClickConsulta(consulta: Consultas){
-        Toast.makeText(context, "Clicou na consulta: ${consulta.nomeCliente}", Toast.LENGTH_SHORT).show()
+    fun onClickConsulta(consultas: Consultas){
+        Toast.makeText(context, "Clicou na consulta: ${consultas.nomeTerapia}", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, ConsultaActivity::class.java)
-        intent.putExtra("consulta", consulta)
+        intent.putExtra("consulta", consultas)
         startActivityForResult(intent, REQUEST_REMOVE)
     }
 

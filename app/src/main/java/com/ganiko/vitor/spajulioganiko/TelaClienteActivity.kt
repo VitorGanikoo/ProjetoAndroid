@@ -1,10 +1,7 @@
 package com.ganiko.vitor.spajulioganiko
 
-
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -15,13 +12,24 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
-import kotlinx.android.synthetic.main.activity_tela_inicial_teste.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
+class TelaClienteActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
+    private var clientes = listOf<Clientes>()
+    var RecyclerClientes: RecyclerView? = null
     private val context: Context get() = this
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
+
+    fun enviaNotificacao(cliente: Clientes){
+        val intent = Intent(this, ClienteActivity::class.java)
+        intent.putExtra("cliente", cliente)
+        NotificationUtil.create(1, intent, "SpaJulioGaniko","Voce tem um novo cliente em ${cliente.nome}")
+    }
+
+
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -106,34 +114,54 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial_teste)
+        setContentView(R.layout.activity_tela_inicial)
 
 
-        botaoNovoCliente.setOnClickListener { onClickNovoCliente() }
-        botaoHistorico.setOnClickListener { onClickHistorico() }
-        botaoCalendario.setOnClickListener { onClickCalendario() }
 
 
-        //      val args = intent.extras
-//        val nome = args.getString("nome")
-        //     Toast.makeText(this, "Parametro enviado: $nome", Toast.LENGTH_SHORT).show()
-
-
-        //   val argss = intent.extras
-        // val nomes = argss.getString("nomes")
-        //Toast.makeText(this, "Parametro enviado: $nomes", Toast.LENGTH_SHORT).show()
-
-
-        botaoSair.setOnClickListener { onClickSair() }
 
         setSupportActionBar(toolbar)
 
-        supportActionBar?.title = "Home"
+        supportActionBar?.title = "Clientes"
         //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         configuraMenuLateral()
 
 
+        RecyclerClientes = findViewById<RecyclerView>(R.id.RecyclerClientes)
+        RecyclerClientes?.layoutManager = LinearLayoutManager(context)
+        RecyclerClientes?.itemAnimator = DefaultItemAnimator()
+        RecyclerClientes?.setHasFixedSize(true)
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        taskClientes()
+    }
+
+    fun taskClientes() {
+        Thread {
+
+            this.clientes = ClientesService.getClientes(context)
+
+            runOnUiThread {
+                RecyclerClientes?.adapter = ClienteAdapter(clientes) { onClickCliente(it) }
+                RecyclerClientes?.adapter = ClienteAdapter(this.clientes) {onClickCliente(it)}
+                enviaNotificacao(this.clientes.get(0))
+
+            }
+
+        }
+                .start()
+    }
+
+    fun onClickCliente(cliente: Clientes) {
+        Toast.makeText(context, "Clicou no cliente: ${cliente.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ClienteActivity::class.java)
+        intent.putExtra("cliente", cliente)
+        startActivityForResult(intent, REQUEST_REMOVE)
     }
 
 
@@ -141,7 +169,6 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
         var menuLateral = findViewById<DrawerLayout>(R.id.layoutMenuLateral)
 
-        // ícone de menu (hamburger) para mostrar o menu
         var toogle =
                 ActionBarDrawerToggle(this, menuLateral, toolbar, R.string.drawer_open, R.string.drawer_close)
 
@@ -154,39 +181,55 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     }
 
 
-    private fun onClickNovoCliente() {
-        val intent = Intent(this, TelaCadastroActivity::class.java)
-        startActivityForResult(intent, 15)
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // infla o menu com os botões da ActionBar
+        menuInflater.inflate(R.menu.menu_main, menu)
+        // vincular evento de buscar
+        (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-    }
+            override fun onQueryTextChange(newText: String): Boolean {
+                // ação enquanto está digitando
+                return false
+            }
 
-    private fun onClickCalendario() {
-        val intent = Intent(this, TelaCalendario::class.java)
-        startActivityForResult(intent, 115)
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // ação  quando terminou de buscar e enviou
+                return false
+            }
 
-
-    }
-
-    private fun onClickHistorico() {
-        val intent = Intent(this, TelaConsultaActivity::class.java)
-        startActivityForResult(intent, 315)
-
-
-    }
-
-
-    fun onClickSair() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivityForResult(intent, 0)
-        //0 é a mainActivity
-        intent.putExtra("Resultado", "Saiu do App")
-
+        })
+        return true
     }
 
 
 
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id = item?.itemId
+        if (id == R.id.action_buscar) {
+            Toast.makeText(this, "Clicou em buscar", Toast.LENGTH_SHORT).show()
+        } else if (id == R.id.action_atualizar) {
+            Toast.makeText(this, "Clicou em Atualizar", Toast.LENGTH_SHORT).show()
+        } else if (id == R.id.action_configurar) {
+            Toast.makeText(this, "Clicou em Configurações", Toast.LENGTH_SHORT).show()
+        } else if (id == R.id.action_adicionar) {
+            // iniciar activity de cadastro
+            val intent = Intent(context, TelaCadastroActivity::class.java)
+            startActivityForResult(intent, REQUEST_CADASTRO)
+        }
+        // botão up navigation
+        else if (id == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskClientes()
+        }
+    }
 }

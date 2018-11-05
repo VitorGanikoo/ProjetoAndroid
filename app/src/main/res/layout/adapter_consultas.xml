@@ -14,10 +14,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/card_Nome"/>
+            android:id="@+id/card_Nome_Consulta"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:id="@+id/card_Imagem"/>
+            android:id="@+id/card_Imagem_Consulta"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

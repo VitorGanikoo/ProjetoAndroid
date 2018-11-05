@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import fernandosousa.com.br.lmsapp.AndroidUtils
+import fernandosousa.com.br.lmsapp.LMSApplication
 import fernandosousa.com.br.lmsapp.Response
 import java.net.URL
 
@@ -16,11 +17,16 @@ object ClientesService {
     val TAG = "WS_LMS"
 
     fun getClientes(context: Context):List<Clientes>{
-
+        var clientes = ArrayList<Clientes>()
         if (AndroidUtils.isInternetDisponivel(context)) {
             val url = "$host/clientes"
             val json = HttpHelper.get(url)
-            return parseJson(json)
+            clientes = parseJson(json)
+            // salvar offline
+            for (d in clientes) {
+                saveOffline(d)
+            }
+            return clientes
         } else {
             val dao = DatabaseManager.getClienteDAO()
             var clientes =  dao.findAll()
@@ -43,6 +49,24 @@ object ClientesService {
          }*/
 
     }
+
+    fun getCliente (context: Context, id: Long): Clientes? {
+
+        if (AndroidUtils.isInternetDisponivel(context)) {
+            val url = "$host/clientes/${id}"
+            val json = HttpHelper.get(url)
+            val cliente = parseJson<Clientes>(json)
+
+            return cliente
+        } else {
+            val dao = DatabaseManager.getClienteDAO()
+            val cliente = dao.getNyId(id)
+            return cliente
+        }
+
+    }
+
+
 
     fun save (clientes: Clientes): Response {
         val json = HttpHelper.post("$host/clientes", clientes.toJson())
@@ -75,9 +99,16 @@ object ClientesService {
 
 
     fun delete(cliente: Clientes): Response {
-        val url = "$host/clientes/${cliente.id}"
-        val json = HttpHelper.delete(url)
-        return parseJson<Response>(json)
+        if (AndroidUtils.isInternetDisponivel(LMSApplication.getInstance().applicationContext)) {
+            val url = "$host/clientes/${cliente.id}"
+            val json = HttpHelper.delete(url)
+
+            return parseJson(json)
+        } else {
+            val dao = DatabaseManager.getClienteDAO()
+            dao.delete(cliente)
+            return Response(status = "OK", msg = "Dados salvos localmente")
+        }
     }
 
 
