@@ -40,11 +40,51 @@ class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemS
 
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Consultas"
+
 
         configuraMenuLateral()
+
+
+        supportActionBar?.title = "Consultas"
     }
 
+
+
+    override fun onResume() {
+        super.onResume()
+        taskConsultas()
+    }
+
+    fun taskConsultas() {
+        Thread {
+
+            this.consultas = ConsultasService.getConsultas(context)
+
+            runOnUiThread {
+                RecyclerConsultas?.adapter = ConsultaAdapter(consultas) { onClickConsulta(it) }
+
+            }
+
+        }
+                .start()
+    }
+
+
+
+    fun onClickConsulta(consulta: Consultas){
+        Toast.makeText(context, "Clicou na consulta: ${consulta.nomeCliente}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ConsultaActivity::class.java)
+        intent.putExtra("consulta", consulta)
+        startActivityForResult(intent, REQUEST_REMOVE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskConsultas()
+        }
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -146,39 +186,5 @@ class TelaConsultaActivity :  DebugActivity(),  NavigationView.OnNavigationItemS
 
 
 
-    override fun onResume() {
-        super.onResume()
-        taskConsultas()
-    }
 
-    fun taskConsultas() {
-        Thread {
-
-            this.consultas = ConsultasService.getConsultas(context)
-
-            runOnUiThread {
-                RecyclerConsultas?.adapter = ConsultaAdapter(consultas) { onClickConsulta(it) }
-
-            }
-
-        }
-                .start()
-    }
-
-
-
-    fun onClickConsulta(consulta: Consultas){
-        Toast.makeText(context, "Clicou na consulta: ${consulta.nomeCliente}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, ConsultaActivity::class.java)
-        intent.putExtra("consulta", consulta)
-        startActivityForResult(intent, REQUEST_REMOVE)
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
-            // atualizar lista de disciplinas
-            taskConsultas()
-        }
-    }
 }

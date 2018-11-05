@@ -23,13 +23,13 @@ class TelaSobreActivity : DebugActivity(), NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_sobre)
 
-        supportActionBar?.title = "Sobre"
+
 
         setSupportActionBar(toolbar)
 
         configuraMenuLateral()
 
-
+        supportActionBar?.title = "Sobre"
     }
 
 

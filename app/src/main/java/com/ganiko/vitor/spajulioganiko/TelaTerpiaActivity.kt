@@ -41,9 +41,49 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
 
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Terapias"
+
 
         configuraMenuLateral()
+
+        supportActionBar?.title = "Terapias"
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        taskTerapias()
+    }
+
+    fun taskTerapias() {
+        Thread {
+
+            this.terapias = TerapiasService.getTerapias(context)
+
+            runOnUiThread {
+                RecyclerTerapias?.adapter = TerapiaAdapter(terapias) { onClickTerapia(it) }
+
+            }
+
+        }
+                .start()
+    }
+
+
+
+    fun onClickTerapia(terapia: Terapias){
+        Toast.makeText(context, "Clicou na terapia: ${terapia.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, TerapiaActivity::class.java)
+        intent.putExtra("terapia", terapia)
+        startActivityForResult(intent, REQUEST_REMOVE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskTerapias()
+        }
     }
 
 
@@ -153,41 +193,6 @@ class TelaTerpiaActivity :  DebugActivity(),  NavigationView.OnNavigationItemSel
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        taskTerapias()
-    }
-
-    fun taskTerapias() {
-        Thread {
-
-            this.terapias = TerapiasService.getTerapias(context)
-
-            runOnUiThread {
-                RecyclerTerapias?.adapter = TerapiaAdapter(terapias) { onClickTerapia(it) }
-
-            }
-
-        }
-                .start()
-    }
-
-
-
-    fun onClickTerapia(terapia: Terapias){
-        Toast.makeText(context, "Clicou na terapia: ${terapia.nome}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, TerapiaActivity::class.java)
-        intent.putExtra("terapia", terapia)
-        startActivityForResult(intent, REQUEST_REMOVE)
-        }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-      if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
-           // atualizar lista de disciplinas
-         taskTerapias()
-      }
-    }
 
     }
 

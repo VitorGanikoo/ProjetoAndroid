@@ -23,6 +23,68 @@ class TelaClienteActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     private var REQUEST_CADASTRO = 1
     private var REQUEST_REMOVE= 2
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_tela_inicial)
+
+
+
+
+
+        setSupportActionBar(toolbar)
+
+
+        //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        configuraMenuLateral()
+        supportActionBar?.title = "Clientes"
+
+        RecyclerClientes = findViewById<RecyclerView>(R.id.RecyclerClientes)
+        RecyclerClientes?.layoutManager = LinearLayoutManager(context)
+        RecyclerClientes?.itemAnimator = DefaultItemAnimator()
+        RecyclerClientes?.setHasFixedSize(true)
+
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        taskClientes()
+    }
+
+    fun taskClientes() {
+        Thread {
+
+            this.clientes = ClientesService.getClientes(context)
+
+            runOnUiThread {
+                RecyclerClientes?.adapter = ClienteAdapter(clientes) { onClickCliente(it) }
+                RecyclerClientes?.adapter = ClienteAdapter(this.clientes) {onClickCliente(it)}
+                enviaNotificacao(this.clientes.get(0))
+
+            }
+
+        }
+                .start()
+    }
+
+    fun onClickCliente(cliente: Clientes) {
+        Toast.makeText(context, "Clicou no cliente: ${cliente.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ClienteActivity::class.java)
+        intent.putExtra("cliente", cliente)
+        startActivityForResult(intent, REQUEST_REMOVE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskClientes()
+        }
+    }
+
     fun enviaNotificacao(cliente: Clientes){
         val intent = Intent(this, ClienteActivity::class.java)
         intent.putExtra("cliente", cliente)
@@ -112,57 +174,10 @@ class TelaClienteActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
 
 
 
 
-
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.title = "Clientes"
-        //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        configuraMenuLateral()
-
-
-        RecyclerClientes = findViewById<RecyclerView>(R.id.RecyclerClientes)
-        RecyclerClientes?.layoutManager = LinearLayoutManager(context)
-        RecyclerClientes?.itemAnimator = DefaultItemAnimator()
-        RecyclerClientes?.setHasFixedSize(true)
-
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        taskClientes()
-    }
-
-    fun taskClientes() {
-        Thread {
-
-            this.clientes = ClientesService.getClientes(context)
-
-            runOnUiThread {
-                RecyclerClientes?.adapter = ClienteAdapter(clientes) { onClickCliente(it) }
-                RecyclerClientes?.adapter = ClienteAdapter(this.clientes) {onClickCliente(it)}
-                enviaNotificacao(this.clientes.get(0))
-
-            }
-
-        }
-                .start()
-    }
-
-    fun onClickCliente(cliente: Clientes) {
-        Toast.makeText(context, "Clicou no cliente: ${cliente.nome}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, ClienteActivity::class.java)
-        intent.putExtra("cliente", cliente)
-        startActivityForResult(intent, REQUEST_REMOVE)
-    }
 
 
     private fun configuraMenuLateral() {
@@ -226,10 +241,5 @@ class TelaClienteActivity : DebugActivity(), NavigationView.OnNavigationItemSele
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
-            // atualizar lista de disciplinas
-            taskClientes()
-        }
-    }
+
 }
